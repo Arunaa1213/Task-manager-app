@@ -15,3 +15,23 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.container {
+  width: 1200px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+@media (min-width:300px) and (max-width:700px) {
+  .container {
+    width: 100%;
+  }
+}
+
+/* @media (min-width:700px) and (max-width:1200px) {
+  .container {
+    width: 100%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+} */

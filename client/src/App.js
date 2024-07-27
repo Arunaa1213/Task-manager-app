@@ -1,11 +1,25 @@
-export default function App() {
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Login from './components/Login';
+import Register from './components/Register';
+import {UserContextProvider} from './userContext';
+import Frontpage from './components/Frontpage';
+import Profile from './components/Profile';
+
+function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
+    <UserContextProvider>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Frontpage />}/>
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/profile' element={<Profile />} />
+        </Route>
+      </Routes>
+    </UserContextProvider>
+  );
 }
 
-// arunaasureshkumar
-// l0nKbLbF1L0HvA6o
-// l0nKbLbF1L0HvA6o
+export default App;
