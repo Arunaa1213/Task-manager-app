@@ -7,7 +7,7 @@ export default function Header() {
     const {setUserInfo, userInfo} = useContext(UserContext);
     const navigate = useNavigate();
     useEffect(() => {
-        fetch('http://localhost:4000/profile', {
+        fetch(`${process.env.REACT_APP_API_URL}/profile`, {
             method: 'POST',
             credentials: 'include',
         })
@@ -18,7 +18,6 @@ export default function Header() {
             return response.json();
         })
         .then(data => {
-            console.log('Profile data:', data);
             setUserInfo(data);
         })
         .catch(error => {
@@ -29,7 +28,7 @@ export default function Header() {
     
     
     function logout() {
-        fetch('http://localhost:4000/logout', {
+        fetch(`${process.env.REACT_APP_API_URL}/logout`, {
             method: 'POST',
             credentials: 'include',
         })
@@ -50,10 +49,10 @@ export default function Header() {
             <Link to='/' className='logo text-2xl font-bold'>Task Manager</Link>
             <nav className='flex flex-row ml-auto gap-4'>
                 {userEmail ? (
-                    <>
+                    <div className='flex flex-col lg:flex-row items-center justify-center'>
                         <p>{userEmail}</p>
-                        <a onClick={logout}>Logout</a>
-                    </>
+                        <a onClick={logout} className='bg-red-500 p-2 rounded-md m-2'>Logout</a>
+                    </div>
                 ) : (
                     <>
                         <Link to='/login' className='text-xl'>Login</Link>

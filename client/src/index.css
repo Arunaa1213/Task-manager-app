@@ -17,7 +17,7 @@ code {
 @tailwind utilities;
 
 .container {
-  width: 1200px;
+  width: 1400px;
   margin-left: 1rem;
   margin-right: 1rem;
 }
