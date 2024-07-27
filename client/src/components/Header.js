@@ -24,7 +24,7 @@ export default function Header() {
         .catch(error => {
             console.error('Error fetching profile:', error);
         });
-    }, []);
+    }, [setUserInfo]);
 
     
     

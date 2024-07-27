@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { useContext, useEffect, useState } from "react";
 import { gapi } from "gapi-script"; 
@@ -7,20 +7,21 @@ import { UserContext } from '../userContext';
 export default function Frontpage() {
     const { setUserInfo } = useContext(UserContext);
     const [isSignedIn, setIsSignedIn] = useState(false);
+    const navigate = useNavigate();
+    const clientid = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
     useEffect(() => {
         function start() {
             gapi.client.init({
-                clientId: '361276648975-ca1oigh3okoopasmt9bu9jtdrrreqt2n.apps.googleusercontent.com',
+                clientId: {clientid},
                 scope: '',
             });
         }
         gapi.load('client:auth2', start);
-    }, []); // Dependency array added here
+    }, [clientid]);
 
     const onSuccess = async (res) => {
-        const profile = res.profileObj;
-        console.log('loggedin succesfully');
+        // const profile = res.profileObj;
         try {
             const response = await fetch('http://localhost:4000/google-login', {
                 method: 'POST',
@@ -31,8 +32,8 @@ export default function Frontpage() {
             if (response.status === 200) {
                 const userInfo = await response.json();
                 setUserInfo(userInfo);
-                setIsSignedIn(true); // Update sign-in state
-                // Redirect if needed
+                setIsSignedIn(true); 
+                navigate('/profile');
             } else {
                 console.log('Google login failed');
             }
@@ -47,7 +48,7 @@ export default function Frontpage() {
 
     const onLogoutSuccess = () => {
         setUserInfo(null);
-        setIsSignedIn(false); // Update sign-out state
+        setIsSignedIn(false); 
         console.log('Successfully logged out');
     }
 
@@ -63,7 +64,7 @@ export default function Frontpage() {
                 <div id='googlesignin'>
                     {!isSignedIn && (
                         <GoogleLogin
-                            clientId='361276648975-ca1oigh3okoopasmt9bu9jtdrrreqt2n.apps.googleusercontent.com'
+                            clientId= {clientid}
                             buttonText='Login'
                             onSuccess={onSuccess}
                             onFailure={onFailure}
@@ -74,7 +75,7 @@ export default function Frontpage() {
                 <div id='googlelogout'>
                     {isSignedIn && (
                         <GoogleLogout
-                            clientId="361276648975-ca1oigh3okoopasmt9bu9jtdrrreqt2n.apps.googleusercontent.com"
+                            clientId= {clientid}
                             buttonText="Logout"
                             onLogoutSuccess={onLogoutSuccess}
                         />

@@ -1,17 +1,6 @@
 export default function validate(email, password){
-    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-    // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-
-    // const emailIsValid = emailRegex.test(email);
-    // const passwordIsValid = passwordRegex.test(password);
-
-    // return {
-    //     email: emailIsValid,
-    //     password: passwordIsValid
-    // };
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
 
     let emailError = "True";
     let passwordError = "True";
